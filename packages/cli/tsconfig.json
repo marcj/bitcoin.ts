@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/cjs"
+  },
+  "include": [
+    "src",
+    "tests",
+    "index.ts"
+  ],
+  "references": [
+    {
+      "path": "../blockchain/tsconfig.json"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/blockchain/tsconfig.json"
+    },
+    {
+      "path": "packages/cli/tsconfig.json"
+    },
+    {
+      "path": "packages/miner/tsconfig.json"
+    },
+    {
+      "path": "packages/miner-api/tsconfig.json"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/cjs",
+    "composite": true
+  },
+  "include": [
+    "src",
+    "tests",
+    "index.ts"
+  ],
+  "references": [
+    {
+      "path": "../blockchain/tsconfig.json"
+    },
+    {
+      "path": "../miner-api/tsconfig.json"
+    }
+  ]
+}

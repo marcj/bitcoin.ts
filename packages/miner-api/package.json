@@ -1,0 +1,40 @@
+{
+  "name": "@mycoin/miner-api",
+  "version": "0.0.1",
+  "description": "The miner RPC API",
+  "type": "commonjs",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@deepkit/rpc": "^1.0.1-alpha.22",
+    "@deepkit/crypto": "^1.0.1-alpha.22",
+    "@deepkit/bson": "^1.0.1-alpha.22",
+    "@deepkit/core": "^1.0.1-alpha.22",
+    "@deepkit/core-rxjs": "^1.0.1-alpha.22",
+    "@deepkit/type": "^1.0.1-alpha.22",
+    "rxjs": "~6.6.0"
+  },
+  "devDependencies": {
+    "@deepkit/rpc": "^1.0.1-alpha.22",
+    "@deepkit/crypto": "^1.0.1-alpha.22",
+    "@deepkit/bson": "^1.0.1-alpha.22",
+    "@deepkit/core": "^1.0.1-alpha.22",
+    "@deepkit/core-rxjs": "^1.0.1-alpha.22",
+    "@deepkit/type": "^1.0.1-alpha.22",
+    "rxjs": "~6.6.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.spec.ts"
+    ]
+  }
+}

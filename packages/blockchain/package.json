@@ -1,0 +1,36 @@
+{
+  "name": "@mycoin/blockchain",
+  "version": "0.0.1",
+  "description": "The blockchain models",
+  "type": "commonjs",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@deepkit/type": "^1.0.1-alpha.22"
+  },
+  "dependencies": {
+    "@types/secp256k1": "^4.0.1",
+    "ripemd160": "^2.0.2",
+    "base-x": "^3.0.8",
+    "secp256k1": "^4.0.2",
+    "varuint-bitcoin": "^1.1.2"
+  },
+  "devDependencies": {
+    "@deepkit/type": "^1.0.1-alpha.22",
+    "@types/ripemd160": "^2.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.spec.ts"
+    ]
+  }
+}

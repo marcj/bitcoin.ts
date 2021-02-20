@@ -1,0 +1,16 @@
+:host {
+    display: block;
+    padding: 20px;
+}
+
+.transaction-input,
+.transaction-output {
+    border-radius: 4px;
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid var(--line-color-light);
+
+    .script {
+        white-space: pre-line;
+    }
+}

@@ -1,0 +1,27 @@
+:host {
+    display: block;
+    padding: 25px;
+}
+
+.blocks {
+}
+
+.block {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 35px;
+    max-width: 550px;
+    border: 1px solid var(--line-color-light);
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+
+    &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -35px;
+        border-right: 1px solid var(--line-color-light);
+        height: 35px;
+    }
+}

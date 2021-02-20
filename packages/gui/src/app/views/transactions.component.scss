@@ -1,0 +1,57 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-grey);
+    justify-content: space-around;
+}
+
+.search {
+    flex: 0 0 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    dui-input {
+        width: 100%;
+        height: 30px;
+    }
+}
+
+.graphs {
+    height: 250px;
+    display: flex;
+
+    > div {
+        margin: 25px;
+        background-color: #292929;
+        width: 50%;
+    }
+}
+
+:host-context(.dui-theme-light) .graph > div {
+    background-color: #d5d5d5;
+}
+
+.transactions {
+    border-top: 1px solid var(--line-sidebar-light);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        flex: 0 0 30px;
+        line-height: 30px;
+        padding-left: 5px;
+    }
+
+    dui-table {
+        height: 100%;
+    }
+}
