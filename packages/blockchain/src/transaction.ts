@@ -20,7 +20,6 @@ export class Output {
          * The locking script.
          *
          * Historically, the locking script was called a scriptPubKey, because it usually contained a public key or bitcoin address.
-         * In our implementation we support only wallet addresses in this field, instead of a script string/binary.
          */
         @t public scriptPubKey: Uint8Array,
     ) {
@@ -42,7 +41,6 @@ export class Input {
          * The unlocking script. The unlocking script is usually a signature, proving ownership of the address that is in the locking script.
          *
          * Historically, the unlocking script is called scriptSig, because it usually contained a digital signature.
-         * In our implementation we support only signatures, instead of a script string/binary.
          */
         @t public scriptSig: Uint8Array,
         @t public sequenceNumber: number,
@@ -83,6 +81,8 @@ export class Transaction {
     @t.array(Output) output: Output[] = [];
 
     @t locktime: number = 0;
+
+    witnesses: Uint8Array[][] = [];
 
     static SIGHASH_ALL = 0x00000001;
     static SIGHASH_NONE = 0x00000002;
@@ -135,6 +135,18 @@ export class Transaction {
     static fromBuffer(reader: BitcoinReader) {
         const transaction = new Transaction();
         const version = reader.eatUInt32();
+        const marker = reader.eatByte();
+        let withWitnesses = false;
+
+        if (marker === 0x00) {
+            //its a marker. This works because tx_in count is never zero.
+            const flag = reader.eatByte();
+            withWitnesses = true;
+        } else {
+            //it's not a marker, fall back and read as var int.
+            reader.offset--;
+        }
+
         const inputs = reader.eatVarUint();
         for (let i = 0; i < inputs; i++) {
             transaction.input.push({
@@ -152,6 +164,19 @@ export class Transaction {
                 scriptPubKey: reader.eatSlice(reader.eatVarUint())
             });
         }
+
+        if (withWitnesses) {
+            for (let i = 0; i < inputs; i++) {
+                const components = reader.eatVarUint();
+                const witnesses: Uint8Array[] = [];
+                transaction.witnesses.push(witnesses);
+                for (let j = 0; j < components; j++) {
+                    const size = reader.eatVarUint();
+                    witnesses.push(reader.eatBuffer(size));
+                }
+            }
+        }
+
         transaction.locktime = reader.eatUInt32();
 
         return transaction;

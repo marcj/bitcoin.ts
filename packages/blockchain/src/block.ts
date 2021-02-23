@@ -67,10 +67,15 @@ export class Block {
         const buffer = Buffer.allocUnsafe(80);
         const writer = new BitcoinWriter(buffer);
         writer.writeUint32(1); //version
-        writer.writeBuffer(bigIntTo32Buffer(this.previous)); //previous
+        const previous = bigIntTo32Buffer(this.previous);
+        previous.reverse();
+        //hashes are stored in reversed order
+        writer.writeBuffer(previous); //previous
 
         //calculate merkleRoot
         this.merkleRoot = calculateMerkleRoot(this.transactions);
+        //hashes are stored in reversed order
+        this.merkleRoot.reverse();
 
         writer.writeBuffer(this.merkleRoot); //merkleRoot
         writer.writeUint32(this.timestamp); //timestamp
@@ -107,10 +112,9 @@ export class Block {
         return buffer;
     }
 
-    static fromBuffer(buffer: Uint8Array): Block {
-        const reader = new BitcoinReader(Buffer.from(buffer));
+    static fromBuffer(reader: Uint8Array | BitcoinReader): Block {
+        reader = reader instanceof BitcoinReader ? reader : new BitcoinReader(Buffer.from(reader));
         const block = new Block(0n);
-        block.buffer = buffer;
         const size = reader.eatUInt32();
 
         block.version = reader.eatUInt32();
